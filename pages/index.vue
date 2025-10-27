@@ -1,32 +1,26 @@
 <template>
   <main class="min-h-screen bg-white text-gray-900">
     <!-- Hero Section -->
-    <section class="relative isolate overflow-hidden h-[600px] sm:h-[700px] lg:h-[800px]">
+    <section class="relative isolate overflow-hidden h-[700px] sm:h-[700px] lg:h-[700px]">
       <div class="absolute inset-0 -z-10 bg-[url('/banner-arka-plan.jpg')] bg-cover bg-center bg-no-repeat"></div>
-      <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[#FDAB17]/30 to-[#FDAB17]/20"></div>
-      <div class="mx-auto max-w-6xl px-4 sm:px-6 pt-[120px] sm:pt-[140px] lg:pt-[160px] pb-16 sm:pb-20 lg:pb-28 text-white h-full flex items-center">
+      <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[#FDAB17]/50 to-[#FDAB17]/40"></div>
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 pt-[100px] sm:pt-[100px] lg:pt-[100px] pb-16 sm:pb-16 lg:pb-16 text-white h-full flex items-center">
         <div class="max-w-3xl">
           <div class="space-y-1 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
             <h1>
-              <span class="text-white">P</span>arça
+              Parça Değiştir
             </h1>
-            <h2>
-              <span class="text-white">D</span>eğiştir
-            </h2>
           </div>
 
-          <p class="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-white">
+          <p class="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg font-semibold text-white">
             {{ $t('hero_description') }}
           </p>
-          <p class="mt-3 sm:mt-4 max-w-2xl text-sm sm:text-base text-white">
+          <p class="mt-3 sm:mt-4 max-w-2xl text-sm sm:text-lg font-semibold text-white">
             {{ $t('hero_subtitle') }}
           </p>
           
           <!-- CTA Buttons -->
           <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <button class="bg-[#FDAB17] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg text-base sm:text-lg font-medium hover:bg-[#FDAB17]/90 transition-colors">
-              {{ $t('get_info') }}
-            </button>
             <NuxtLink to="/contact" class="border border-white text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg text-base sm:text-lg font-medium hover:bg-white hover:text-[#FDAB17] transition-colors text-center">
               {{ $t('contact_us') }}
             </NuxtLink>
@@ -36,7 +30,7 @@
     </section>
 
     <!-- Featured Features -->
-    <section class="relative -mt-16 sm:-mt-24 lg:-mt-32 z-10">
+    <section class="relative -mt-16 sm:-mt-16 lg:-mt-16 z-10">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <!-- Expert Consultation -->

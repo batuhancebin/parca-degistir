@@ -1,10 +1,10 @@
 <template>
   <main class="min-h-screen bg-white text-gray-900">
     <!-- Hero Section -->
-    <section class="relative h-[300px] sm:h-[350px] lg:h-[400px] bg-[#FDAB17]">
+    <section class="relative h-[700px] sm:h-[700px] lg:h-[700px] bg-[#FDAB17]">
       <!-- Background Image -->
       <div class="absolute inset-0 bg-[url('/banner-arka-plan.jpg')] bg-cover bg-center bg-no-repeat"></div>
-      <div class="absolute inset-0 bg-[#FDAB17]/30"></div>
+      <div class="absolute inset-0 bg-[#FDAB17]/50"></div>
       
       <div class="relative z-10 h-full flex items-center">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full">

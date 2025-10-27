@@ -7,7 +7,7 @@
       class="px-3 py-1 text-sm font-bold uppercase transition-colors duration-200"
       :class="locale === 'tr' 
         ? 'bg-black text-[#FDAB17] rounded' 
-        : 'text-white hover:text-[#FDAB17]'"
+        : 'text-[#FDAB17] hover:text-black'"
     >
       TR
     </button>
@@ -18,7 +18,7 @@
       class="px-3 py-1 text-sm font-bold uppercase transition-colors duration-200"
       :class="locale === 'en' 
         ? 'bg-black text-[#FDAB17] rounded' 
-        : 'text-white hover:text-[#FDAB17]'"
+        : 'text-[#FDAB17] hover:text-black'"
     >
       ENG
     </button>

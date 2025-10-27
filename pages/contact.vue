@@ -1,10 +1,10 @@
 <template>
   <main class="min-h-screen bg-white text-gray-900">
     <!-- Hero Section -->
-    <section class="relative h-[300px] sm:h-[350px] lg:h-[400px] bg-[#FDAB17]">
+    <section class="relative h-[700px] sm:h-[700px] lg:h-[700px] bg-[#FDAB17]">
       <!-- Background Image -->
       <div class="absolute inset-0 bg-[url('/banner-arka-plan.jpg')] bg-cover bg-center bg-no-repeat"></div>
-      <div class="absolute inset-0 bg-[#FDAB17]/30"></div>
+      <div class="absolute inset-0 bg-[#FDAB17]/50"></div>
       
       <div class="relative z-10 h-full flex items-center">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full">
@@ -97,6 +97,26 @@
           <div class="bg-gray-800 rounded-xl p-6 sm:p-8 shadow-2xl">
             <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">{{ $t('contact_form_title') }}</h3>
             <form @submit.prevent="submitForm" class="space-y-4 sm:space-y-6">
+              <!-- Success Message -->
+              <div v-if="isSubmitted" class="bg-green-500/20 border border-green-500 text-green-300 px-4 py-3 rounded-lg">
+                <div class="flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.
+                </div>
+              </div>
+
+              <!-- Error Message -->
+              <div v-if="submitError" class="bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg">
+                <div class="flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ submitError }}
+                </div>
+              </div>
+
               <!-- Name Field -->
               <div>
                 <label for="name" class="block text-white text-sm font-medium mb-2">{{ $t('name') }}</label>
@@ -104,10 +124,12 @@
                   type="text" 
                   id="name" 
                   v-model="form.name"
-                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:border-transparent"
+                  class="w-full px-4 py-3 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:border-transparent"
+                  :class="errors.name ? 'border-red-500' : 'border-gray-600'"
                   :placeholder="$t('name_placeholder')"
                   required
                 />
+                <p v-if="errors.name" class="mt-1 text-sm text-red-400">{{ errors.name }}</p>
               </div>
               
               <!-- Email Field -->
@@ -117,10 +139,12 @@
                   type="email" 
                   id="email" 
                   v-model="form.email"
-                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:border-transparent"
+                  class="w-full px-4 py-3 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:border-transparent"
+                  :class="errors.email ? 'border-red-500' : 'border-gray-600'"
                   :placeholder="$t('email_placeholder')"
                   required
                 />
+                <p v-if="errors.email" class="mt-1 text-sm text-red-400">{{ errors.email }}</p>
               </div>
               
               <!-- Subject Field -->
@@ -129,7 +153,8 @@
                 <select 
                   id="subject" 
                   v-model="form.subject"
-                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:border-transparent"
+                  class="w-full px-4 py-3 bg-gray-700 border rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:border-transparent"
+                  :class="errors.subject ? 'border-red-500' : 'border-gray-600'"
                   required
                 >
                   <option value="" disabled>{{ $t('select_subject') }}</option>
@@ -139,6 +164,7 @@
                   <option value="order">{{ $t('order_inquiry') }}</option>
                   <option value="other">{{ $t('other') }}</option>
                 </select>
+                <p v-if="errors.subject" class="mt-1 text-sm text-red-400">{{ errors.subject }}</p>
               </div>
               
               <!-- Message Field -->
@@ -148,10 +174,12 @@
                   id="message" 
                   v-model="form.message"
                   rows="4"
-                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:border-transparent resize-none"
+                  class="w-full px-4 py-3 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:border-transparent resize-none"
+                  :class="errors.message ? 'border-red-500' : 'border-gray-600'"
                   :placeholder="$t('message_placeholder')"
                   required
                 ></textarea>
+                <p v-if="errors.message" class="mt-1 text-sm text-red-400">{{ errors.message }}</p>
               </div>
               
               <!-- Privacy Policy Checkbox -->
@@ -161,19 +189,22 @@
                   id="privacy" 
                   v-model="form.privacyAccepted"
                   class="mt-1 w-4 h-4 text-[#FDAB17] bg-gray-700 border-gray-600 rounded focus:ring-[#FDAB17]"
+                  :class="errors.privacyAccepted ? 'border-red-500' : ''"
                   required
                 />
                 <label for="privacy" class="text-sm text-gray-300">
                   {{ $t('privacy_accept') }}
                 </label>
               </div>
+              <p v-if="errors.privacyAccepted" class="text-sm text-red-400">{{ errors.privacyAccepted }}</p>
               
               <!-- Submit Button -->
               <button 
-                type="submit" 
-                class="w-full bg-[#FDAB17] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#FDAB17]/90 transition-colors focus:outline-none focus:ring-2 focus:ring-[#FDAB17] focus:ring-offset-2 focus:ring-offset-gray-800"
+                type="button" 
+                disabled
+                class="w-full bg-gray-500 text-white py-3 px-6 rounded-lg font-medium cursor-not-allowed opacity-50"
               >
-                {{ $t('send') }}
+                {{ $t('send') }} (Geçici olarak devre dışı)
               </button>
             </form>
           </div>
@@ -247,7 +278,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 // İletişim sayfası meta bilgileri
 useHead({
@@ -263,7 +294,8 @@ useHead({
   ]
 })
 
-const form = ref({
+// Form state
+const form = reactive({
   name: '',
   email: '',
   subject: '',
@@ -271,13 +303,136 @@ const form = ref({
   privacyAccepted: false
 })
 
-const submitForm = () => {
-  // Form submission logic here
-  console.log('Form submitted:', form.value)
-  // You can add actual form submission logic here
+// Form validation state
+const errors = reactive({
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+  privacyAccepted: ''
+})
+
+// Form submission state
+const isSubmitting = ref(false)
+const isSubmitted = ref(false)
+const submitError = ref('')
+
+// Validation functions
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+const validateForm = () => {
+  // Reset errors
+  Object.keys(errors).forEach(key => {
+    errors[key] = ''
+  })
+
+  let isValid = true
+
+  // Name validation
+  if (!form.name.trim()) {
+    errors.name = 'Adınız gereklidir'
+    isValid = false
+  } else if (form.name.trim().length < 2) {
+    errors.name = 'Adınız en az 2 karakter olmalıdır'
+    isValid = false
+  }
+
+  // Email validation
+  if (!form.email.trim()) {
+    errors.email = 'E-posta adresi gereklidir'
+    isValid = false
+  } else if (!validateEmail(form.email)) {
+    errors.email = 'Geçerli bir e-posta adresi giriniz'
+    isValid = false
+  }
+
+  // Subject validation
+  if (!form.subject) {
+    errors.subject = 'Konu seçimi gereklidir'
+    isValid = false
+  }
+
+  // Message validation
+  if (!form.message.trim()) {
+    errors.message = 'Mesaj gereklidir'
+    isValid = false
+  } else if (form.message.trim().length < 10) {
+    errors.message = 'Mesaj en az 10 karakter olmalıdır'
+    isValid = false
+  }
+
+  // Privacy validation
+  if (!form.privacyAccepted) {
+    errors.privacyAccepted = 'Gizlilik politikasını kabul etmelisiniz'
+    isValid = false
+  }
+
+  return isValid
+}
+
+// Form submission
+const submitForm = async (event) => {
+  event.preventDefault()
+  
+  if (!validateForm()) {
+    return
+  }
+
+  isSubmitting.value = true
+  submitError.value = ''
+
+  try {
+    // Form data preparation
+    const formData = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      subject: form.subject,
+      message: form.message.trim(),
+      timestamp: new Date().toISOString(),
+      userAgent: navigator.userAgent,
+      url: window.location.href
+    }
+
+    // Send email using EmailJS or your preferred service
+    // For now, we'll simulate a successful submission
+    await new Promise(resolve => setTimeout(resolve, 2000)) // Simulate API call
+
+    // Success
+    isSubmitted.value = true
+    
+    // Reset form
+    Object.keys(form).forEach(key => {
+      if (key === 'privacyAccepted') {
+        form[key] = false
+      } else {
+        form[key] = ''
+      }
+    })
+
+    // Show success message
+    console.log('Form submitted successfully:', formData)
+    
+  } catch (error) {
+    console.error('Form submission error:', error)
+    submitError.value = 'Form gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.'
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
+
+// Reset success message after 5 seconds
+watch(isSubmitted, (newValue) => {
+  if (newValue) {
+    setTimeout(() => {
+      isSubmitted.value = false
+    }, 5000)
+  }
+})
 </script>
